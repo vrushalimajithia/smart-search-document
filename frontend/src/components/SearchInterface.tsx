@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || '';
+
 interface SearchResult {
   answer: string;
   source: string;
@@ -46,7 +48,7 @@ const SearchInterface = ({ clearTrigger }: SearchInterfaceProps) => {
     setResult(null);
 
     try {
-      const response = await axios.post('/api/search', {
+      const response = await axios.post(`${API_URL}/api/search`, {
         query: query.trim()
       });
 

@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || '';
+
 interface DocumentUploadProps {
   onUploadSuccess: () => void;
   clearTrigger?: number;
@@ -103,7 +105,7 @@ const DocumentUpload = ({ onUploadSuccess, clearTrigger }: DocumentUploadProps) 
       console.log('Starting upload...', files.length, 'files');
       console.log('File names:', files.map(f => f.name));
       
-      const response = await axios.post('/api/upload/multiple', formData, {
+      const response = await axios.post(`${API_URL}/api/upload/multiple`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

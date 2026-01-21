@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || '';
+
 interface DocumentInfo {
   name: string;
   size: number;
@@ -23,7 +25,7 @@ const DocumentList = ({ refreshTrigger, onDocumentsCleared }: DocumentListProps)
   const fetchDocuments = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/documents');
+      const response = await axios.get(`${API_URL}/api/documents`);
       // Use documentsWithSize if available, otherwise fallback to documents array
       if (response.data.documentsWithSize) {
         setDocuments(response.data.documentsWithSize);
@@ -56,7 +58,7 @@ const DocumentList = ({ refreshTrigger, onDocumentsCleared }: DocumentListProps)
     try {
       // Encode the fileName to handle special characters
       const encodedFileName = encodeURIComponent(fileName);
-      await axios.delete(`/api/documents/${encodedFileName}`);
+      await axios.delete(`${API_URL}/api/documents/${encodedFileName}`);
       // Refresh the document list
       await fetchDocuments();
       setError(null);
@@ -71,7 +73,7 @@ const DocumentList = ({ refreshTrigger, onDocumentsCleared }: DocumentListProps)
     }
 
     try {
-      await axios.delete('/api/documents/clear');
+      await axios.delete(`${API_URL}/api/documents/clear`);
       // Refresh the document list to ensure it's cleared
       await fetchDocuments();
       setError(null);
