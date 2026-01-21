@@ -119,9 +119,9 @@ router.post('/multiple', upload.array('documents', 10), async (req, res, next) =
       return res.status(400).json({ error: 'No files uploaded' });
     }
 
-    const files = Array.isArray(req.files) ? req.files : [req.files];
+    const files = req.files as Express.Multer.File[];
     console.log(`[${requestId}] Processing ${files.length} file(s)`);
-    const results = [];
+    const results: any[] = [];
 
     for (const file of files) {
       try {
