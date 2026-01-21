@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "set NODE_OPTIONS=--max-old-space-size=4096 && tsx watch src/index.ts",
     "build": "tsc",
-    "start": "node --max-old-space-size=4096 dist/index.js"
+    "start": "node --max-old-space-size=4096 dist/index.js",
+    "railway": "npm run build && npm start"
   },
   "keywords": [],
   "author": "",
